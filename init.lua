@@ -28,9 +28,9 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
+-- vim.schedule(function()
+--   vim.opt.clipboard = 'unnamedplus'
+-- end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -139,6 +139,14 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
+vim.filetype.add {
+  extension = {
+    nf = 'nextflow',
+    ['nf.test'] = 'nextflow',
+    config = 'nextflow',
+  },
+}
+vim.treesitter.language.register('groovy', 'nextflow')
 
 -- [[ Configure and install plugins ]]
 --
@@ -604,6 +612,21 @@ require('lazy').setup({
             },
           },
         },
+        ['nextflow-language-server'] = {
+          -- The command to start the language server
+          -- You'll need to adjust the path to where you download the JAR file
+          cmd = {
+            vim.fn.expand '~/.local/share/nvim/mason/packages/nextflow-language-server/nextflow-language-server',
+          },
+          filetypes = { 'nextflow' },
+          root_dir = require('lspconfig.util').root_pattern('.git', 'nextflow.config', 'main.nf'),
+          -- You can add additional configuration if needed
+          settings = {
+            -- nextflow = {
+            -- Any specific settings you want to pass to the server
+            -- },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -622,6 +645,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'nextflow-language-server', -- For Nextflow suport
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -850,7 +874,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'groovy' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
