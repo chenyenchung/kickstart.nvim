@@ -16,7 +16,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -28,9 +28,9 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
--- vim.schedule(function()
---   vim.opt.clipboard = 'unnamedplus'
--- end)
+vim.schedule(function()
+  vim.opt.clipboard = 'unnamedplus'
+end)
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -397,7 +397,7 @@ require('lazy').setup({
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
       { 'williamboman/mason.nvim', opts = {} },
-      'williamboman/mason-lspconfig.nvim',
+      { 'chenyenchung/mason-lspconfig.nvim', branch = 'nextflow-ls' },
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
@@ -610,21 +610,6 @@ require('lazy').setup({
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               -- diagnostics = { disable = { 'missing-fields' } },
             },
-          },
-        },
-        ['nextflow-language-server'] = {
-          -- The command to start the language server
-          -- You'll need to adjust the path to where you download the JAR file
-          cmd = {
-            vim.fn.expand '~/.local/share/nvim/mason/packages/nextflow-language-server/nextflow-language-server',
-          },
-          filetypes = { 'nextflow' },
-          root_dir = require('lspconfig.util').root_pattern('.git', 'nextflow.config', 'main.nf'),
-          -- You can add additional configuration if needed
-          settings = {
-            -- nextflow = {
-            -- Any specific settings you want to pass to the server
-            -- },
           },
         },
       }
