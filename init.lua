@@ -16,7 +16,7 @@ vim.g.have_nerd_font = true
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -29,7 +29,7 @@ vim.o.showmode = false
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
+  vim.opt.clipboard = 'unnamedplus'
 end)
 
 -- Enable break indent
@@ -152,7 +152,6 @@ vim.filetype.add {
   },
 }
 vim.treesitter.language.register('groovy', 'nextflow')
->>>>>>> 0dc5887 (Add Nextflow support)
 
 -- [[ Configure and install plugins ]]
 --
@@ -616,21 +615,6 @@ require('lazy').setup({
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               -- diagnostics = { disable = { 'missing-fields' } },
             },
-          },
-        },
-        ['nextflow-language-server'] = {
-          -- The command to start the language server
-          -- You'll need to adjust the path to where you download the JAR file
-          cmd = {
-            vim.fn.expand '~/.local/share/nvim/mason/packages/nextflow-language-server/nextflow-language-server',
-          },
-          filetypes = { 'nextflow' },
-          root_dir = require('lspconfig.util').root_pattern('.git', 'nextflow.config', 'main.nf'),
-          -- You can add additional configuration if needed
-          settings = {
-            -- nextflow = {
-            -- Any specific settings you want to pass to the server
-            -- },
           },
         },
       }
