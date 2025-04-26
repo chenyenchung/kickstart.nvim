@@ -2,4 +2,17 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+print 'Custom setting loaded'
+
+M = {}
+
+vim.filetype.add {
+  extension = {
+    nf = 'nextflow',
+    ['nf.test'] = 'nextflow',
+    config = 'nextflow',
+  },
+}
+-- vim.treesitter.language.register('groovy', 'nextflow')
+
+return M

@@ -7,6 +7,8 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+require 'custom.plugins.init'
+
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
@@ -28,9 +30,12 @@ vim.o.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
-end)
+if not vim.g.vscode then
+  vim.schedule(function()
+    vim.opt.clipboard = 'unnamedplus'
+    vim.g.clipboard = 'osc52'
+  end)
+end
 
 -- Enable break indent
 vim.o.breakindent = true
