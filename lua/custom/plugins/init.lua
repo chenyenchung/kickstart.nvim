@@ -4,6 +4,8 @@
 -- See the kickstart.nvim README for more information
 M = {}
 
+require 'custom.plugins.keymap'
+
 vim.filetype.add {
   extension = {
     nf = 'nextflow',
