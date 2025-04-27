@@ -2,8 +2,6 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-print 'Custom setting loaded'
-
 M = {}
 
 vim.filetype.add {
@@ -13,6 +11,6 @@ vim.filetype.add {
     config = 'nextflow',
   },
 }
--- vim.treesitter.language.register('groovy', 'nextflow')
+vim.treesitter.language.register('groovy', 'nextflow')
 
 return M
