@@ -33,7 +33,15 @@ vim.o.showmode = false
 if not vim.g.vscode then
   vim.schedule(function()
     vim.opt.clipboard = 'unnamedplus'
-    vim.g.clipboard = 'osc52'
+    if os.getenv 'SSH_CLIENT' ~= nil or os.getenv 'SSH_TTY' ~= nil then
+      vim.g.clipboard = {
+        name = 'OSC 52',
+        copy = {
+          ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+          ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+        },
+      }
+    end
   end)
 end
 
