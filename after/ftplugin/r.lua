@@ -1,5 +1,3 @@
-vim.bo.shiftwidth = 2
-
 M = {}
 
 function M.start_r()
@@ -43,11 +41,11 @@ function M.send2term(code)
     local lastline = vim.api.nvim_buf_line_count(M.term_bufnr)
     vim.api.nvim_win_set_cursor(term_winnr[1], { lastline, 1 })
   else
-    vim.notify('[ERROR] Is there an R session running?', ERROR)
+    vim.notify('[ERROR] Is there an R session running?', 4)
   end
 end
 
-vim.keymap.set('n', '<S-CR>', function()
+vim.keymap.set('n', '<CR>', function()
   local line = vim.api.nvim_get_current_line()
   local winnr = vim.api.nvim_get_current_win()
   local bufnr = vim.api.nvim_get_current_buf()
@@ -68,7 +66,7 @@ vim.keymap.set('n', '<S-CR>', function()
 
   local sent, _ = pcall(M.send2term, { line, '' })
   if sent == false then
-    vim.notify('[ERROR] Cannot send the line to R session', ERROR)
+    vim.notify('[ERROR] Cannot send the line to R session', 4)
   end
 
   local stepforward = 1

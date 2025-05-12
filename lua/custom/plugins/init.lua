@@ -15,4 +15,7 @@ vim.filetype.add {
 }
 vim.treesitter.language.register('groovy', 'nextflow')
 
+vim.o.expandtab = true
+vim.o.shiftwidth = 2
+
 return M
